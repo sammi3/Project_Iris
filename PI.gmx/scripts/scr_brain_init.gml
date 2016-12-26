@@ -9,7 +9,7 @@ numNeurons = 0;
 //This helps us specify the connections in the brain of an agent with less computational
 //load compared to specifying the brain on a per neuron basis.
 var nGroup;
-nGroup[neuronGroups,1]  = 0;
+nGroup[neuronGroups-1,1]  = 0;
 for(var j = 0; j < 2; j++)
 {
     for(var i = 0; i < neuronGroups; i++)
@@ -28,11 +28,11 @@ counter += ((numNeuronGroups-neuronGroups)*2)*8;
 
 //We create a ds_grid that will be used to store the activation of a neuron at the end
 //of a timestep
-hidden[numNeurons] = 0;
-hidden_0[numNeurons] = 0;
+hidden[numNeurons-1] = 0;
+hidden_0[numNeurons-1] = 0;
 //We then create an array that will store the weights for the connections between the
 //inputs and the hidden nodes
-synapse_in[numNeurons,numInputs] = 0;
+synapse_in[numNeurons-1,numInputs-1] = 0;
 //Here we set a variable k in order to store the values of the weights. We move along k
 //across the length of the array. We do not reset it in between the two groups of 
 //nested for loops to account for having two types of neurons (excitatory and inhibitory)
@@ -165,7 +165,7 @@ counter += ((numNeuronGroups*numNeuronGroups)-(neuronGroups*neuronGroups))*8;
 
 //Now we specify the hidden nodes weight to the output nodes
 //We begin by creating the array that will store the weights of the outputs
-synapse_on[numNeurons,numOutputs] = 0;
+synapse_on[numNeurons-1,numOutputs-1] = 0;
 var k = 0;
 for(var j = 0; j < numOutputs; j++)
 {
@@ -200,30 +200,26 @@ for(var j = 0; j < numOutputs; j++)
 counter += ((numNeuronGroups-neuronGroups)*numOutputs)*8;
 
 //Time to create the biases
-bias_hidden[numNeurons] = 0;
+bias_hidden[numNeurons-1] = 0;
 
 k = 0;
 for(var i = 0; i < neuronGroups; i++)
 {
-    k = 0;
     repeat(nGroup[i,0])
     {
         bias_hidden[k] = (real(base_convert(string_copy(geneStr,counter,8),2,10))/255);
-        show_debug_message(bias_hidden[k]);
         k++;
     }
     counter += 8; 
 }
 
 counter += (numNeuronGroups-neuronGroups)*8;
-
+k = eNeurons;
 for(var i = 0; i < neuronGroups; i++)
 {
-    k = eNeurons;
     repeat(nGroup[i,0])
     {
         bias_hidden[k] = (real(base_convert(string_copy(geneStr,counter,8),2,10))/255);
-        show_debug_message(bias_hidden[k]); 
         k++;
     }
     counter += 8; 
@@ -231,7 +227,7 @@ for(var i = 0; i < neuronGroups; i++)
 
 counter += (numNeuronGroups-neuronGroups)*8;
 
-bias_output[numOutputs] = 0;
+bias_output[numOutputs-1] = 0;
 
 for(var i = 0; i < numOutputs; i++)
 {

@@ -30,7 +30,7 @@ base_width = 2048;
 base_height = 2048;
 zoom = 1;
 
-repeat(1)
+repeat(30)
 {
     instance_create(random(room_width),random(room_height),obj_agent);
 }
